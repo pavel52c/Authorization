@@ -5,16 +5,13 @@ import { Repository } from 'typeorm';
 import { isEmpty } from '@nestjs/common/utils/shared.utils';
 import { HTTPError } from '../../../helpers/error';
 import { CreateUserDto } from '../dto/create-user.dto';
-import { nanoid } from 'nanoid';
-import { AuthService } from '../../auth/services/auth.service';
+import { v4 as uid } from 'uuid';
 
 const selectedFieldsForResponse = {
   username: true,
   refreshToken: true,
   id: true,
   banned: true,
-  favoriteTags: true,
-  articles: true,
 };
 
 @Injectable()
@@ -22,7 +19,6 @@ export class UsersService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
-    private readonly authService: AuthService,
   ) {}
 
   async findAll(): Promise<UserEntity[]> {
@@ -52,7 +48,7 @@ export class UsersService {
 
     newUser.username = username;
     newUser.password = password;
-    newUser.refreshToken = nanoid();
+    newUser.refreshToken = uid();
 
     return await this.userRepository.save(newUser);
   }

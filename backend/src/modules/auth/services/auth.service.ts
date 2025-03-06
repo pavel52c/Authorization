@@ -10,7 +10,7 @@ import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from '../../user/dto/create-user.dto';
 import { HTTPError } from '../../../helpers/error';
 import * as bcrypt from 'bcryptjs';
-import { nanoid } from 'nanoid';
+import { v4 as uid } from 'uuid';
 import { jwtConstants } from '../contsants/secretKey';
 import { getTokenFromHeaders } from '../../../helpers/getTokenFromHeaders';
 
@@ -40,7 +40,7 @@ export class AuthService {
 
   async generateToken(user: CreateUserDto) {
     const payload = { username: user.username, password: user.password };
-    const refreshToken = nanoid();
+    const refreshToken = uid();
     const updatedUser = await this.usersService.updateUser(user, {
       refreshToken,
     });

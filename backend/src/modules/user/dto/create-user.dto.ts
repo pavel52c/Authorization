@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, Length } from 'class-validator';
-import { nanoid } from 'nanoid';
+import { v4 as uid } from 'uuid';
 
 export class CreateUserDto {
   @ApiProperty({ example: 'Cat', description: 'Имя пользователя' })
@@ -12,6 +12,6 @@ export class CreateUserDto {
   @Length(4, 16, { message: 'Не меньше 4 и не больше 16' })
   readonly password: string;
 
-  @ApiProperty({ example: nanoid(), description: 'Рефреш токен' })
+  @ApiProperty({ example: uid(), description: 'Рефреш токен' })
   readonly refreshToken: string;
 }

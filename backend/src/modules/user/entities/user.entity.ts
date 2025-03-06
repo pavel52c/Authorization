@@ -4,7 +4,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { nanoid } from 'nanoid';
+import { v4 as uid } from 'uuid';
 
 @Entity()
 export class UserEntity {
@@ -24,7 +24,7 @@ export class UserEntity {
   @Column({ default: false })
   banned: boolean;
 
-  @ApiProperty({ example: nanoid(), description: 'Рефреш токен' })
+  @ApiProperty({ example: uid(), description: 'Рефреш токен' })
   @Column()
   refreshToken: string;
 }

@@ -13,7 +13,6 @@ import { UserEntity } from '../entities/user.entity';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
-import { AuthService } from '../../auth/services/auth.service';
 
 type UserResponse = Omit<UserEntity, 'password'>;
 
@@ -21,7 +20,6 @@ type UserResponse = Omit<UserEntity, 'password'>;
 export class UsersController {
   constructor(
     private readonly userService: UsersService,
-    private readonly authService: AuthService,
   ) {}
 
   @ApiOperation({ summary: 'Получить всех пользователей' })
